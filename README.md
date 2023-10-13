@@ -7,7 +7,7 @@ Drop-in DLSS replacement with FSR 2.0 for various games such as Cyberpunk 2077.
 
 ## Official Discord Channel: https://discord.gg/2JDHx6kcXB
 
-## Installation
+## Installation 
 *Following instructions were written for Cyberpunk 2077 and may differ for other games.*
 ### Windows 
 * Download the latest relase from [Nexusmods](https://www.nexusmods.com/cyberpunk2077/mods/3001?tab=files).
