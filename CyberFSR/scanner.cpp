@@ -1,8 +1,10 @@
 #include "pch.h"
 #include "scanner.h"
+#include "CFSR_Logging.h"
 
 std::pair<uintptr_t, uintptr_t> GetModule(const std::wstring_view moduleName)
 {
+	CyberLOG();
 	const static uintptr_t moduleBase = reinterpret_cast<uintptr_t>(GetModuleHandleW(moduleName.data()));
 	const static uintptr_t moduleEnd = [&]()
 	{
@@ -16,6 +18,7 @@ std::pair<uintptr_t, uintptr_t> GetModule(const std::wstring_view moduleName)
 
 uintptr_t FindPattern(uintptr_t startAddress, uintptr_t maxSize, const char* mask)
 {
+	CyberLOG();
 	std::vector<std::pair<uint8_t, bool>> pattern;
 
 	for (size_t i = 0; i < strlen(mask);)
@@ -49,6 +52,7 @@ uintptr_t FindPattern(uintptr_t startAddress, uintptr_t maxSize, const char* mas
 
 uintptr_t scanner::GetAddress(const std::wstring_view moduleName, const std::string_view pattern, ptrdiff_t offset)
 {
+	CyberLOG();
 	if (GetModuleHandleW(moduleName.data()) != nullptr)
 	{
 		uintptr_t address = FindPattern(GetModule(moduleName.data()).first, GetModule(moduleName.data()).second - GetModule(moduleName.data()).first, pattern.data());
@@ -58,10 +62,13 @@ uintptr_t scanner::GetAddress(const std::wstring_view moduleName, const std::str
 
 		return (address + offset);
 	}
+	else
+		return (uintptr_t) nullptr;
 }
 
 uintptr_t scanner::GetOffsetFromInstruction(const std::wstring_view moduleName, const std::string_view pattern, ptrdiff_t offset)
 {
+	CyberLOG();
 	if (GetModuleHandleW(moduleName.data()) != nullptr)
 	{
 		uintptr_t address = FindPattern(GetModule(moduleName.data()).first, GetModule(moduleName.data()).second - GetModule(moduleName.data()).first, pattern.data());

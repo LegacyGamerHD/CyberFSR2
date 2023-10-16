@@ -3,6 +3,7 @@
 #include "ViewMatrixHook.h"
 #include "NvParameter.h"
 #include "DebugOverlay.h"
+#include "CFSR_logging.h"
 
 class FeatureContext;
 
@@ -17,7 +18,8 @@ public:
 	VkInstance VulkanInstance;
 	VkPhysicalDevice VulkanPhysicalDevice;
 
-	std::shared_ptr<NvParameter> NvParameterInstance = NvParameter::instance();
+	//std::vector<std::shared_ptr<Hyper_NGX::Parameter>> NvParameterInstances;
+	Hyper_NGX_Parameter::ParameterFactory paramFactory;
 
 	ankerl::unordered_dense::map <unsigned int, std::unique_ptr<FeatureContext>> Contexts;
 	FeatureContext* CreateContext();
@@ -34,12 +36,15 @@ class FeatureContext
 {
 public:
 	std::unique_ptr<ViewMatrixHook> ViewMatrix;
-	NVSDK_NGX_Handle Handle;
+	NVSDK_NGX_Handle Handle{0};
 	ID3D12Device* DxDevice;
 	FfxFsr2Context FsrContext;
 	FfxFsr2ContextDescription FsrContextDescription;
-	std::unique_ptr<DebugOverlay> DebugLayer;
 	std::vector<unsigned char> ScratchBuffer;
+
+#ifdef CyberFSR_DO_OVERLAY1
+	std::unique_ptr<DebugOverlay> DebugLayer;
+#endif
 
 	unsigned int Width{}, Height{}, RenderWidth{}, RenderHeight{};
 	NVSDK_NGX_PerfQuality_Value PerfQualityValue = NVSDK_NGX_PerfQuality_Value_Balanced;

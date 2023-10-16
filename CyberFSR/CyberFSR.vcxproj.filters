@@ -45,11 +45,11 @@
     <ClInclude Include="scanner.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CFSR_Logging.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -84,6 +84,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CyberFsrDx11.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CFSR_Logging.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
